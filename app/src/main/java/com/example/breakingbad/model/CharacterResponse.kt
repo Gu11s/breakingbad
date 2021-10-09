@@ -2,7 +2,7 @@ package com.example.breakingbad.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GetCharactersResponse(
+data class CharacterResponse(
 
     @SerializedName("char_id")
     val characterId: Int?,

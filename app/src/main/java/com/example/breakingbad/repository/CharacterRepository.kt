@@ -3,7 +3,7 @@ package com.example.breakingbad.repository
 import android.util.Log
 import com.example.breakingbad.datasource.remote.CharacterAPIIMP
 import com.example.breakingbad.datasource.remote.CharacterDataSource
-import com.example.breakingbad.model.GetCharactersResponse
+import com.example.breakingbad.model.CharacterResponse
 import retrofit2.*
 
 class CharacterRepository : CharacterDataSource {
@@ -13,16 +13,16 @@ class CharacterRepository : CharacterDataSource {
     override fun getCharacters(
         limit: Int?,
         offset: Int?,
-        onResult: (List<GetCharactersResponse>?) -> Unit
+        onResult: (List<CharacterResponse>?) -> Unit
     ) {
-        api.getCharacters(limit, offset).enqueue(object : Callback<List<GetCharactersResponse>> {
+        api.getCharacters(limit, offset).enqueue(object : Callback<List<CharacterResponse>> {
             override fun onResponse(
-                call: Call<List<GetCharactersResponse>>,
-                response: Response<List<GetCharactersResponse>>
+                call: Call<List<CharacterResponse>>,
+                response: Response<List<CharacterResponse>>
             ) {
                 if (response.code() == 200) {
-                    Log.i("Character response success", response.body().toString())
-                    val characterList: List<GetCharactersResponse> = response.body()!!
+                    Log.e("Character response success", response.body().toString())
+                    val characterList: List<CharacterResponse> = response.body()!!
                     onResult(characterList)
                 } else {
                     Log.e("Character response", response.code().toString())
@@ -30,7 +30,7 @@ class CharacterRepository : CharacterDataSource {
                 }
             }
 
-            override fun onFailure(call: Call<List<GetCharactersResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CharacterResponse>>, t: Throwable) {
                 Log.e("Character response fail", t.message.toString())
                 onResult(null)
             }

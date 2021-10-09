@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gsalas/AndroidStudioProjects/Kotlin/BreakingBad/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/gsalas/AndroidStudioProjects/Kotlin/BreakingBad/app/src/main/res/layout/character_item.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/gsalas/AndroidStudioProjects/Kotlin/BreakingBad/app/src/main/res/layout/fragment_characters.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/gsalas/AndroidStudioProjects/Kotlin/BreakingBad/app/src/main/res/layout/fragment_detail.xml" value="0.20520833333333333" />
       </map>
     </option>

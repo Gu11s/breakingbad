@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.breakingbad.R
 import com.example.breakingbad.model.CharacterResponse
+import com.example.breakingbad.util.getProgressDrawable
+import com.example.breakingbad.util.loadImage
 import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharacterListAdapter(private val characterList: ArrayList<CharacterResponse>) : RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder>() {
@@ -31,7 +33,7 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
         holder.view.tv_characterName.text = characterList[position].characterName
         holder.view.tv_characterNickName.text = characterList[position].characterNickname
 
-//        holder.view.iv_characterImage.loadImage(characterList[position].characterImage, getProgressDrawable(holder.view.iv_characterImage.context))
+        holder.view.iv_characterImage.loadImage(characterList[position].characterImage, getProgressDrawable(holder.view.iv_characterImage.context))
 
     }
 }

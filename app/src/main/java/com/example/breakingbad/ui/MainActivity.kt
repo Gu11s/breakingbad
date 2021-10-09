@@ -1,4 +1,4 @@
-package com.example.breakingbad.view
+package com.example.breakingbad.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

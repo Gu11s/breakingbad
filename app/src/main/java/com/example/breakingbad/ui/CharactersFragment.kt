@@ -35,7 +35,7 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvCharacterList = view.findViewById(R.id.rv_characterList)
-        progressBar = view.findViewById(R.id.pb_loadingView)
+//        progressBar = view.findViewById(R.id.pb_loadingView)
 
         rvCharacterList.apply {
             layoutManager = LinearLayoutManager(context)

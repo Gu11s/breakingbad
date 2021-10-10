@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+//@Entity(tableName = "characters")
 @Entity
 data class CharacterResponse(
 
@@ -36,9 +37,9 @@ data class CharacterResponse(
     @SerializedName("nickname")
     val characterNickname: String?,
 
-    @ColumnInfo(name = "characterAppearance")
-    @SerializedName("appearance")
-    val characterAppearance: List<Int?>,
+//    @ColumnInfo(name = "characterAppearance")
+//    @SerializedName("appearance")
+//    val characterAppearance: List<Int?>,
 
     @ColumnInfo(name = "characterPortrayedBy")
     @SerializedName("portrayed")
@@ -48,9 +49,9 @@ data class CharacterResponse(
     @SerializedName("category")
     val characterCategory: String?,
 
-    @ColumnInfo(name = "characterBetterCallSaulAppearance")
-    @SerializedName("better_call_saul_appearance")
-    val characterBetterCallSaulAppearance: List<Int?>
+//    @ColumnInfo(name = "characterBetterCallSaulAppearance")
+//    @SerializedName("better_call_saul_appearance")
+//    val characterBetterCallSaulAppearance: List<Int?>
 ) {
     //generating primary key
     @PrimaryKey(autoGenerate = true)

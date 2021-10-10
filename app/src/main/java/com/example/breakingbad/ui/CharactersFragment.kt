@@ -1,5 +1,6 @@
 package com.example.breakingbad.ui
 
+import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,16 +22,16 @@ class CharactersFragment : Fragment() {
     private lateinit var characterViewModel: CharacterViewModel
     private val characterListAdapter = CharacterListAdapter(arrayListOf())
 
-    lateinit var rvCharacterList : RecyclerView
-    lateinit var progressBar : ProgressBar
+    lateinit var rvCharacterList: RecyclerView
+    lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root =  inflater.inflate(R.layout.fragment_characters, container, false)
-        characterViewModel = CharacterViewModel()
+        val root = inflater.inflate(R.layout.fragment_characters, container, false)
+//        characterViewModel = CharacterViewModel(getApplication())
         return root
     }
 
@@ -52,7 +53,8 @@ class CharactersFragment : Fragment() {
             rvCharacterList.visibility = View.GONE
             tv_listError.visibility = View.GONE
             pb_loadingView.visibility = View.VISIBLE
-            characterViewModel.refresh(100, 0)
+//            characterViewModel.refresh(100, 0)
+            characterViewModel.refreshBypassCache(100, 0)
             refreshLayout.isRefreshing = false
         }
 //        getCharacters()
@@ -61,9 +63,9 @@ class CharactersFragment : Fragment() {
 
     }
 
-    fun getCharacters(){
-        characterViewModel.getCharacter(100, 0){
-            if(it != null){
+    fun getCharacters() {
+        characterViewModel.getCharacter(100, 0) {
+            if (it != null) {
                 val characterList: ArrayList<CharacterResponse> = it as ArrayList<CharacterResponse>
                 rvCharacterList.adapter = CharacterListAdapter(characterList)
             }
@@ -71,18 +73,18 @@ class CharactersFragment : Fragment() {
     }
 
 
-    fun observeViewModel(){
-        characterViewModel.characters.observe(viewLifecycleOwner, Observer{characters ->
-            characters?.let{
+    fun observeViewModel() {
+        characterViewModel.characters.observe(viewLifecycleOwner, Observer { characters ->
+            characters?.let {
                 rvCharacterList.visibility = View.VISIBLE
                 characterListAdapter.updateCharacterList(characters)
             }
         })
 
-        characterViewModel.charactersLoadError.observe(viewLifecycleOwner, Observer{isError ->
-            isError?.let{
+        characterViewModel.charactersLoadError.observe(viewLifecycleOwner, Observer { isError ->
+            isError?.let {
                 tv_listError.visibility =
-                    if(it){
+                    if (it) {
                         View.VISIBLE
                     } else {
                         View.GONE
@@ -91,9 +93,9 @@ class CharactersFragment : Fragment() {
         })
 
         characterViewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
-            isLoading?.let{
+            isLoading?.let {
                 pb_loadingView.visibility =
-                    if(it){
+                    if (it) {
                         View.VISIBLE
                     } else {
                         View.GONE

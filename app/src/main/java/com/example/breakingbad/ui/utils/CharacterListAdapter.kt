@@ -62,12 +62,14 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
 //        }
 
         holder.view.character = characterList[position]
+        holder.view.listener = this
 
     }
 
     override fun onCharacterClicked(v: View) {
         val uuid = v.tv_characterId.text.toString().toInt()
         val action = CharactersFragmentDirections.actionCharactersFragmentToDetailFragment()
+        action.characterUuid = uuid
         Navigation.findNavController(v).navigate(action)
     }
 }

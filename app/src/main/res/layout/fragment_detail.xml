@@ -15,7 +15,7 @@
         tools:context=".ui.DetailFragment">
 
         <ImageView
-            android:id="@+id/iv_characterImage"
+            android:id="@+id/iv_detailCharacterImage"
             android:layout_width="50dp"
             android:layout_height="100dp"
             android:layout_marginStart="50dp"
@@ -26,14 +26,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_characterName"
+            android:id="@+id/tv_detailCharacterName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="50dp"
-            android:text="@string/character_name"
-            app:layout_constraintBottom_toBottomOf="@id/iv_characterImage"
-            app:layout_constraintStart_toEndOf="@+id/iv_characterImage" />
+            android:text="@{character.characterName}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_detailCharacterImage"
+            app:layout_constraintStart_toEndOf="@+id/iv_detailCharacterImage" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -44,8 +44,8 @@
             android:layout_weight="1"
             android:backgroundTintMode="screen"
             android:contentDescription="@string/favorite_image"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_characterImage"
-            app:layout_constraintStart_toEndOf="@+id/tv_characterName"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_detailCharacterImage"
+            app:layout_constraintStart_toEndOf="@+id/tv_detailCharacterName"
             app:srcCompat="@drawable/ic_outline_favorite" />
 
         <TextView
@@ -56,17 +56,17 @@
             android:layout_marginTop="10dp"
             android:text="Occupation:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_characterImage" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_detailCharacterImage" />
 
         <TextView
-            android:id="@+id/tv_characterOccupation"
+            android:id="@+id/tv_detailCharacterOccupation"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:maxLines="2"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="Character Occupation"
+            android:text="@{character.characterOccupation.toString()}"
             app:layout_constraintBottom_toBottomOf="@+id/occupation"
             app:layout_constraintStart_toEndOf="@+id/occupation" />
 
@@ -80,13 +80,13 @@
             app:layout_constraintTop_toBottomOf="@+id/occupation" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tv_detailCharacterStatus"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="52dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="Character status"
+            android:text="@{character.characterStatus}"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4" />
 
@@ -100,13 +100,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tv_detailCharacterPortrayedBy"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="Portrayed by"
+            android:text="@{character.characterPortrayedBy}"
             app:layout_constraintBottom_toBottomOf="@+id/textView6"
             app:layout_constraintStart_toEndOf="@+id/textView6" />
 

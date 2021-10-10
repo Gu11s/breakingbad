@@ -21,5 +21,9 @@
         <action
             android:id="@+id/action_detailFragment_to_charactersFragment"
             app:destination="@id/charactersFragment" />
+        <argument
+            android:name="characterUuid"
+            android:defaultValue="0"
+            app:argType="integer"/>
     </fragment>
 </navigation>

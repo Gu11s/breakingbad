@@ -18,7 +18,7 @@ import com.example.breakingbad.util.loadImage
 import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharacterListAdapter(private val characterList: ArrayList<CharacterResponse>) :
-    RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder>() {
+    RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder>(), CharacterClickListener {
 
     //    class CharacterViewHolder(var view: View): RecyclerView.ViewHolder(view)
     class CharacterViewHolder(var view: CharacterItemBinding) : RecyclerView.ViewHolder(view.root)
@@ -63,5 +63,11 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
 
         holder.view.character = characterList[position]
 
+    }
+
+    override fun onCharacterClicked(v: View) {
+        val uuid = v.tv_characterId.text.toString().toInt()
+        val action = CharactersFragmentDirections.actionCharactersFragmentToDetailFragment()
+        Navigation.findNavController(v).navigate(action)
     }
 }

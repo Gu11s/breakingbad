@@ -1,4 +1,8 @@
 package com.example.breakingbad.ui.utils
 
-class CharacterClickListener {
+import android.view.View
+
+interface CharacterClickListener {
+
+    fun onCharacterClicked(v: View)
 }

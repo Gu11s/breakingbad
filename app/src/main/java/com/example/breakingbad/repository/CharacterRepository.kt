@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.breakingbad.datasource.remote.CharacterAPIIMP
 import com.example.breakingbad.datasource.remote.CharacterDataSource
 import com.example.breakingbad.model.CharacterResponse
+import io.reactivex.Single
 import retrofit2.*
 
 class CharacterRepository : CharacterDataSource {
@@ -21,7 +22,7 @@ class CharacterRepository : CharacterDataSource {
                 response: Response<List<CharacterResponse>>
             ) {
                 if (response.code() == 200) {
-                    Log.e("Character response success", response.body().toString())
+                    Log.i("Character response", response.body().toString())
                     val characterList: List<CharacterResponse> = response.body()!!
                     onResult(characterList)
                 } else {
@@ -37,4 +38,7 @@ class CharacterRepository : CharacterDataSource {
 
         })
     }
+
+    override fun getCharacterObservable(limit: Int?, offset: Int?): Single<List<CharacterResponse>> =
+        api.getCharactersObservable(limit, offset)
 }

@@ -54,7 +54,7 @@ data class CharacterResponse(
 //    val characterBetterCallSaulAppearance: List<Int?>
 
     @ColumnInfo(name = "isFavorite")
-    val isFavorite: Boolean? = false
+    var isFavorite :String? = "false"
 ) {
     //generating primary key
     @PrimaryKey(autoGenerate = true)

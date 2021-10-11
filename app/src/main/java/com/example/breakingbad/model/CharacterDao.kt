@@ -3,6 +3,7 @@ package com.example.breakingbad.model
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 //Data Access Object
 @Dao
@@ -22,6 +23,9 @@ interface CharacterDao {
 
     @Query("SELECT * FROM characterresponse WHERE isFavorite = :characterFavorite")
     suspend fun getFavoriteCharacter(characterFavorite: Boolean):CharacterResponse
+
+    @Update
+    suspend fun updateCharacter(characterResponse: CharacterResponse)
 
 //    @Query("SELECT * FROM characterresponse")
 //    suspend fun saveFavoriteCharacter()

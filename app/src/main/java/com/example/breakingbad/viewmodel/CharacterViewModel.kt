@@ -98,6 +98,14 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
 //
 //    }
 
+    private fun updateCharacter(list: List<CharacterResponse>){
+        launch{
+            val dao = CharacterDatabase(getApplication()).characterDao()
+            val result = dao.insertAll(*list.toTypedArray())
+
+        }
+    }
+
     private fun storeCharactersLocally(list: List<CharacterResponse>) {
         //implementing coroutines
         launch {

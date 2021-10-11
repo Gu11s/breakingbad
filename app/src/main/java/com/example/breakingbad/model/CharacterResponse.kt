@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-//@Entity(tableName = "characters")
 @Entity
 data class CharacterResponse(
 
@@ -15,7 +14,7 @@ data class CharacterResponse(
 
     @ColumnInfo(name = "characterName")
     @SerializedName("name")
-    val characterName: String?,
+    var characterName: String?,
 
     @ColumnInfo(name = "characterBirthday")
     @SerializedName("birthday")
@@ -54,7 +53,7 @@ data class CharacterResponse(
 //    val characterBetterCallSaulAppearance: List<Int?>
 
     @ColumnInfo(name = "isFavorite")
-    var isFavorite :String? = "false"
+    var isFavorite :Boolean = false
 ) {
     //generating primary key
     @PrimaryKey(autoGenerate = true)

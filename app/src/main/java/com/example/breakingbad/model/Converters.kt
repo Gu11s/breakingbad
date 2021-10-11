@@ -18,4 +18,16 @@ class Converters {
         return Gson().fromJson(value,listType)
     }
 
+//    @TypeConverter
+//    fun fromListToInt(list: List<Int?>):Int{
+//        val gson = Gson()
+//        return gson.toJson(list).toString().toInt()
+//    }
+//
+//    @TypeConverter
+//    fun fromInt(value: Int):List<Int?>{
+//        val listType = object : TypeToken<List<Int?>>() {}.type
+//        return Gson().fromJson(value, listType)
+//    }
+
 }

@@ -1,29 +1,22 @@
 package com.example.breakingbad.ui.utils
 
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.breakingbad.R
 import com.example.breakingbad.databinding.CharacterItemBinding
 import com.example.breakingbad.model.CharacterResponse
-import com.example.breakingbad.ui.CharactersFragment
 import com.example.breakingbad.ui.CharactersFragmentDirections
-import com.example.breakingbad.util.getProgressDrawable
-import com.example.breakingbad.util.loadImage
+import com.example.breakingbad.viewmodel.CharacterViewModel
 import kotlinx.android.synthetic.main.character_item.view.*
 
-class CharacterListAdapter(private val characterList: ArrayList<CharacterResponse>) :
+class CharacterListAdapter(private val characterList: ArrayList<CharacterResponse>, private var actions: SetCharacterFavoriteActions) :
     RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder>(), CharacterClickListener {
 
-    //    class CharacterViewHolder(var view: View): RecyclerView.ViewHolder(view)
     class CharacterViewHolder(var view: CharacterItemBinding) : RecyclerView.ViewHolder(view.root)
-    private var isFavorite: Boolean = false
-
 
     fun updateCharacterList(newCharacterList: List<CharacterResponse>) {
         characterList.clear()
@@ -37,7 +30,6 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-//        val view = inflater.inflate(R.layout.character_item, parent, false)
         val view = DataBindingUtil.inflate<CharacterItemBinding>(
             inflater,
             R.layout.character_item,
@@ -51,28 +43,26 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.setIsRecyclable(false)
 
-//        holder.view.tv_characterName.text = characterList[position].characterName
-//        holder.view.tv_characterNickName.text = characterList[position].characterNickname
-//        holder.view.iv_characterImage.loadImage(
-//            characterList[position].characterImage,
-//            getProgressDrawable(holder.view.iv_characterImage.context)
-//        )
-//        holder.view.setOnClickListener {
-//            Navigation.findNavController(it)
-//                .navigate(CharactersFragmentDirections.actionCharactersFragmentToDetailFragment())
-//        }
-
         holder.view.character = characterList[position]
         holder.view.listener = this
 
+        if(characterList[position].isFavorite){
+            holder.view.ivFavorite.setImageResource(R.drawable.ic_favorite)
+        }else{
+            holder.view.ivFavorite.setImageResource(R.drawable.ic_outline_favorite)
+        }
+
         holder.view.ivFavorite.setOnClickListener {
-            isFavorite = if(!isFavorite){
+            if(!characterList[position].isFavorite){
                 holder.view.ivFavorite.setImageResource(R.drawable.ic_favorite)
-                true
+                characterList[position].isFavorite = true
             }else{
                 holder.view.ivFavorite.setImageResource(R.drawable.ic_outline_favorite)
-                false
+                characterList[position].isFavorite = false
             }
+
+            actions.setFavorite(characterList[position].isFavorite, characterList[position].uuid)
+
         }
 
     }

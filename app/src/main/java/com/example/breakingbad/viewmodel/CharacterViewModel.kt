@@ -1,6 +1,7 @@
 package com.example.breakingbad.viewmodel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,18 +35,18 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
 
     fun refresh(limit: Int?, offset: Int?) {
         val upDateTime = prefHelper.getUpdateTime()
-        if (upDateTime != null && upDateTime != 0L && System.nanoTime() - upDateTime < refreshTime){
+        if (upDateTime != null && upDateTime != 0L && System.nanoTime() - upDateTime < refreshTime) {
             fetchFromDatabase()
         } else {
             fetchFromRemote(limit, offset)
         }
     }
 
-    fun refreshBypassCache(limit: Int?, offset: Int?){
+    fun refreshBypassCache(limit: Int?, offset: Int?) {
         fetchFromRemote(limit, offset)
     }
 
-    private fun fetchFromDatabase(){
+    fun fetchFromDatabase() {
         loading.value = true
         launch {
             val characters = CharacterDatabase(getApplication()).characterDao().getAllCharacters()
@@ -54,7 +55,7 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
         }
     }
 
-    private fun getFavorite(){
+    private fun getFavorite() {
         isFavorite.value = true
     }
 
@@ -66,6 +67,7 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<CharacterResponse>>() {
                     override fun onSuccess(characterList: List<CharacterResponse>) {
+                        Log.e("ROOM DATABASe", characterList[1].toString())
                         storeCharactersLocally(characterList)
                         Toast.makeText(getApplication(), "FROM ENDPOINT", Toast.LENGTH_SHORT).show()
                     }
@@ -86,23 +88,10 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
         loading.value = false
     }
 
-//    private fun storeCharacterFavorite(list: List<CharacterResponse>){
-//        launch{
-//            val dao = CharacterDatabase(getApplication()).characterDao()
-//            val result = dao.saveFavoriteCharacter()
-//            var i = 0
-//            while (i < list.size){
-//                list[i].uuid = result[]
-//            }
-//        }
-//
-//    }
-
-    private fun updateCharacter(list: List<CharacterResponse>){
-        launch{
-            val dao = CharacterDatabase(getApplication()).characterDao()
-            val result = dao.insertAll(*list.toTypedArray())
-
+    fun setToFavorite(isFavorite: Boolean, characterUuid: Int) {
+        launch {
+            CharacterDatabase(getApplication()).characterDao()
+                .setCharacterFavorite(isFavorite, characterUuid)
         }
     }
 
@@ -117,13 +106,10 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
                 list[i].uuid = result[i].toInt()
                 ++i
             }
+            list[9].isFavorite = true
             charactersRetrieved(list)
         }
         prefHelper.saveUpdateTime(System.nanoTime())
-    }
-
-    private fun setCharacterFavorite(){
-        isFavorite.value = true
     }
 
     override fun onCleared() {

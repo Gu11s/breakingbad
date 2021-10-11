@@ -12,7 +12,7 @@ interface CharacterDao {
     @Insert
     suspend fun insertAll(vararg characters: CharacterResponse): List<Long>
 
-    @Query("SELECT * FROM characterresponse") //'characterresponse' table name
+    @Query("SELECT * FROM characterresponse ORDER BY isFavorite desc") //'characterresponse' table name
     suspend fun getAllCharacters(): List<CharacterResponse>
 
     @Query("SELECT * FROM characterresponse WHERE uuid = :characterId")
@@ -21,11 +21,11 @@ interface CharacterDao {
     @Query("DELETE FROM characterresponse")
     suspend fun deleteAllCharacters()
 
-    @Query("SELECT * FROM characterresponse WHERE isFavorite = :characterFavorite")
-    suspend fun getFavoriteCharacter(characterFavorite: Boolean):CharacterResponse
+    @Query("UPDATE characterresponse SET isFavorite = :isFavorite WHERE uuid = :characterId")
+    suspend fun setCharacterFavorite(isFavorite: Boolean, characterId: Int): Int
 
-    @Update
-    suspend fun updateCharacter(characterResponse: CharacterResponse)
+//    @Update
+//    suspend fun updateCharacter(characterResponse: CharacterResponse)
 
 //    @Query("SELECT * FROM characterresponse")
 //    suspend fun saveFavoriteCharacter()

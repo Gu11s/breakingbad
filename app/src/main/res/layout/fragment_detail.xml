@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="character"
             type="com.example.breakingbad.model.CharacterResponse" />
@@ -16,8 +17,8 @@
 
         <ImageView
             android:id="@+id/iv_detailCharacterImage"
-            android:layout_width="50dp"
-            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
             android:contentDescription="erlenmeyer"
@@ -30,22 +31,26 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="50dp"
-            android:text="@{character.characterName}"
+            android:layout_marginBottom="100dp"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:text="@{character.characterNickname}"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/iv_detailCharacterImage"
             app:layout_constraintStart_toEndOf="@+id/iv_detailCharacterImage" />
 
         <ImageButton
             android:id="@+id/ib_isFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="116dp"
-            android:layout_marginBottom="56dp"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="0.35"
             android:backgroundTintMode="screen"
             android:contentDescription="@string/favorite_image"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_detailCharacterImage"
             app:layout_constraintStart_toEndOf="@+id/tv_detailCharacterName"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_outline_favorite" />
 
         <TextView

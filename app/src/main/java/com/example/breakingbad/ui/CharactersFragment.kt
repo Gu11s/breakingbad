@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.breakingbad.R
 import com.example.breakingbad.model.CharacterResponse
 import com.example.breakingbad.ui.utils.CharacterListAdapter
+import com.example.breakingbad.ui.utils.SetCharacterFavoriteActions
 import com.example.breakingbad.viewmodel.CharacterViewModel
 import kotlinx.android.synthetic.main.fragment_characters.*
 
-class CharactersFragment : Fragment() {
+class CharactersFragment : Fragment(), SetCharacterFavoriteActions {
 
     private lateinit var characterViewModel: CharacterViewModel
-    private val characterListAdapter = CharacterListAdapter(arrayListOf())
+    private val characterListAdapter = CharacterListAdapter(arrayListOf(), this)
 
     lateinit var rvCharacterList: RecyclerView
     lateinit var progressBar: ProgressBar
@@ -54,7 +55,8 @@ class CharactersFragment : Fragment() {
             tv_listError.visibility = View.GONE
             pb_loadingView.visibility = View.VISIBLE
 //            characterViewModel.refresh(100, 0)
-            characterViewModel.refreshBypassCache(100, 0)
+//            characterViewModel.refreshBypassCache(100, 0)
+            characterViewModel.fetchFromDatabase()
             refreshLayout.isRefreshing = false
         }
 //        getCharacters()
@@ -63,14 +65,14 @@ class CharactersFragment : Fragment() {
 
     }
 
-    fun getCharacters() {
-        characterViewModel.getCharacter(100, 0) {
-            if (it != null) {
-                val characterList: ArrayList<CharacterResponse> = it as ArrayList<CharacterResponse>
-                rvCharacterList.adapter = CharacterListAdapter(characterList)
-            }
-        }
-    }
+//    fun getCharacters() {
+//        characterViewModel.getCharacter(100, 0) {
+//            if (it != null) {
+//                val characterList: ArrayList<CharacterResponse> = it as ArrayList<CharacterResponse>
+//                rvCharacterList.adapter = CharacterListAdapter(characterList)
+//            }
+//        }
+//    }
 
 
     fun observeViewModel() {
@@ -102,5 +104,13 @@ class CharactersFragment : Fragment() {
                     }
             }
         })
+    }
+
+    override fun setFavorite(isFavorite: Boolean, characterUuid: Int) {
+        characterViewModel.setToFavorite(isFavorite, characterUuid)
+    }
+
+    override fun isFavorite(isFavorite: Boolean) {
+        TODO("Not yet implemented")
     }
 }

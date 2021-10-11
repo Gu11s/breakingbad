@@ -4,5 +4,4 @@ interface SetCharacterFavoriteActions {
 
     fun setFavorite(isFavorite: Boolean, characterUuid: Int)
 
-    fun isFavorite(isFavorite: Boolean)
 }

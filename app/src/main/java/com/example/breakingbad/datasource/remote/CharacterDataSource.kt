@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface CharacterDataSource {
 
-    fun getCharacters(limit: Int?, offset: Int?, onResult:(List<CharacterResponse>?) -> Unit)
+//    fun getCharacters(limit: Int?, offset: Int?, onResult:(List<CharacterResponse>?) -> Unit)
 
     fun getCharacterObservable(limit: Int?, offset: Int?): Single<List<CharacterResponse>>
 }

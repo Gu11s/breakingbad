@@ -9,6 +9,8 @@ class SharedPreferencesHelper {
 
     companion object {
 
+        private const val FLAG = "flag"
+
         private const val PREF_TIME = "Pref time"
         private var prefs: SharedPreferences? = null
 
@@ -34,5 +36,11 @@ class SharedPreferencesHelper {
     }
 
     fun getUpdateTime() = prefs?.getLong(PREF_TIME, 0)
+
+    fun saveFlag(flag: Boolean){
+        prefs?.edit(commit = true) { putBoolean(FLAG, flag)}
+    }
+
+    fun getFlag() = prefs?.getBoolean(FLAG, true)
 
 }

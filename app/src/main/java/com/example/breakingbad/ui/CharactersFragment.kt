@@ -24,7 +24,6 @@ class CharactersFragment : Fragment(), SetCharacterFavoriteActions {
     private val characterListAdapter = CharacterListAdapter(arrayListOf(), this)
 
     lateinit var rvCharacterList: RecyclerView
-    lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +31,6 @@ class CharactersFragment : Fragment(), SetCharacterFavoriteActions {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_characters, container, false)
-//        characterViewModel = CharacterViewModel(getApplication())
         return root
     }
 
@@ -40,7 +38,6 @@ class CharactersFragment : Fragment(), SetCharacterFavoriteActions {
         super.onViewCreated(view, savedInstanceState)
 
         rvCharacterList = view.findViewById(R.id.rv_characterList)
-//            progressBar = view.findViewById(R.id.pb_loadingView)
 
         characterViewModel = ViewModelProviders.of(this).get(CharacterViewModel::class.java)
         characterViewModel.refresh(100, 0)
@@ -54,26 +51,12 @@ class CharactersFragment : Fragment(), SetCharacterFavoriteActions {
             rvCharacterList.visibility = View.GONE
             tv_listError.visibility = View.GONE
             pb_loadingView.visibility = View.VISIBLE
-//            characterViewModel.refresh(100, 0)
-//            characterViewModel.refreshBypassCache(100, 0)
             characterViewModel.fetchFromDatabase()
             refreshLayout.isRefreshing = false
         }
-//        getCharacters()
-
         observeViewModel()
 
     }
-
-//    fun getCharacters() {
-//        characterViewModel.getCharacter(100, 0) {
-//            if (it != null) {
-//                val characterList: ArrayList<CharacterResponse> = it as ArrayList<CharacterResponse>
-//                rvCharacterList.adapter = CharacterListAdapter(characterList)
-//            }
-//        }
-//    }
-
 
     fun observeViewModel() {
         characterViewModel.characters.observe(viewLifecycleOwner, Observer { characters ->
@@ -108,9 +91,5 @@ class CharactersFragment : Fragment(), SetCharacterFavoriteActions {
 
     override fun setFavorite(isFavorite: Boolean, characterUuid: Int) {
         characterViewModel.setToFavorite(isFavorite, characterUuid)
-    }
-
-    override fun isFavorite(isFavorite: Boolean) {
-        TODO("Not yet implemented")
     }
 }

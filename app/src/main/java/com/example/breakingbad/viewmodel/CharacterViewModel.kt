@@ -1,11 +1,10 @@
 package com.example.breakingbad.viewmodel
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.breakingbad.model.CharacterDao
 import com.example.breakingbad.model.CharacterDatabase
 import com.example.breakingbad.model.CharacterResponse
 import com.example.breakingbad.repository.CharacterRepository
@@ -24,21 +23,29 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
     private var prefHelper = SharedPreferencesHelper(getApplication())
     private var refreshTime = 5 * 60 * 1000 * 1000 * 100L
 
-    fun getCharacter(limit: Int?, offset: Int?, onResult: (List<CharacterResponse>?) -> Unit) =
-        characterRepository.getCharacters(limit, offset, onResult)
+    private var flagFirstTime = true
 
     private val disposable = CompositeDisposable() //retrieve or observe the observable
     val characters = MutableLiveData<List<CharacterResponse>>()
     val charactersLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
-    val isFavorite = MutableLiveData<Boolean>()
 
     fun refresh(limit: Int?, offset: Int?) {
         val upDateTime = prefHelper.getUpdateTime()
-        if (upDateTime != null && upDateTime != 0L && System.nanoTime() - upDateTime < refreshTime) {
-            fetchFromDatabase()
-        } else {
+
+        //fetch from remote in a 5min time
+//        if (upDateTime != null && upDateTime != 0L && System.nanoTime() - upDateTime < refreshTime) {
+//            fetchFromDatabase()
+//        } else {
+//            fetchFromRemote(limit, offset)
+//        }
+
+        if (prefHelper.getFlag() == true) {
             fetchFromRemote(limit, offset)
+            flagFirstTime = false
+            prefHelper.saveFlag(flagFirstTime)
+        } else {
+            fetchFromDatabase()
         }
     }
 
@@ -53,10 +60,6 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
             charactersRetrieved(characters)
             Toast.makeText(getApplication(), "FROM DATABASE", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun getFavorite() {
-        isFavorite.value = true
     }
 
     private fun fetchFromRemote(limit: Int?, offset: Int?) {

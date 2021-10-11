@@ -8,11 +8,11 @@ import retrofit2.http.Query
 
 interface CharacterAPI {
 
-    @GET("characters")
-    fun getCharacters(
-        @Query("limit") limit: Int?,
-        @Query("offset") offset: Int?
-    ): Call<List<CharacterResponse>>
+//    @GET("characters")
+//    fun getCharacters(
+//        @Query("limit") limit: Int?,
+//        @Query("offset") offset: Int?
+//    ): Call<List<CharacterResponse>>
 
     @GET("characters")
     fun getCharactersObservable(

@@ -20,10 +20,10 @@ class CharacterAPIIMP: CharacterAPI {
 
     private val characterAPI: CharacterAPI = retrofit.create(CharacterAPI::class.java)
 
-    override fun getCharacters(limit: Int?, offset: Int?): Call<List<CharacterResponse>> {
-        Log.i("Get character response", "Done")
-        return characterAPI.getCharacters(limit, offset)
-    }
+//    override fun getCharacters(limit: Int?, offset: Int?): Call<List<CharacterResponse>> {
+//        Log.i("Get character response", "Done")
+//        return characterAPI.getCharacters(limit, offset)
+//    }
 
     override fun getCharactersObservable(limit: Int?, offset: Int?): Single<List<CharacterResponse>> {
         Log.i("Get character response", "Done")

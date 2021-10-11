@@ -52,6 +52,9 @@ data class CharacterResponse(
 //    @ColumnInfo(name = "characterBetterCallSaulAppearance")
 //    @SerializedName("better_call_saul_appearance")
 //    val characterBetterCallSaulAppearance: List<Int?>
+
+    @ColumnInfo(name = "isFavorite")
+    val isFavorite: Boolean? = false
 ) {
     //generating primary key
     @PrimaryKey(autoGenerate = true)

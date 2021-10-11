@@ -15,6 +15,7 @@ import com.example.breakingbad.databinding.FragmentDetailBinding
 import com.example.breakingbad.util.getProgressDrawable
 import com.example.breakingbad.util.loadImage
 import com.example.breakingbad.viewmodel.DetailViewModel
+import kotlinx.android.synthetic.main.character_item.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
@@ -22,6 +23,7 @@ class DetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private var characterUuid = 0
     private lateinit var dataBinding: FragmentDetailBinding
+    private var isFavorite: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +41,14 @@ class DetailFragment : Fragment() {
             characterUuid = DetailFragmentArgs.fromBundle(it).characterUuid
         }
 
-//        buttonList.setOnClickListener{
-//            val action = DetailFragmentDirections.actionDetailFragmentToCharactersFragment()
-//            Navigation.findNavController(it).navigate(action)
+//        ib_isFavorite.setOnClickListener {
+//            isFavorite = if(!isFavorite){
+//                ib_isFavorite.setImageResource(R.drawable.ic_favorite)
+//                true
+//            }else{
+//                ib_isFavorite.setImageResource(R.drawable.ic_outline_favorite)
+//                false
+//            }
 //        }
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)

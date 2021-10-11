@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.breakingbad.model.CharacterDao
 import com.example.breakingbad.model.CharacterDatabase
 import com.example.breakingbad.model.CharacterResponse
 import com.example.breakingbad.repository.CharacterRepository
@@ -29,6 +30,7 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
     val characters = MutableLiveData<List<CharacterResponse>>()
     val charactersLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
+    val isFavorite = MutableLiveData<Boolean>()
 
     fun refresh(limit: Int?, offset: Int?) {
         val upDateTime = prefHelper.getUpdateTime()
@@ -50,6 +52,10 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
             charactersRetrieved(characters)
             Toast.makeText(getApplication(), "FROM DATABASE", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getFavorite(){
+        isFavorite.value = true
     }
 
     private fun fetchFromRemote(limit: Int?, offset: Int?) {
@@ -80,6 +86,18 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
         loading.value = false
     }
 
+//    private fun storeCharacterFavorite(list: List<CharacterResponse>){
+//        launch{
+//            val dao = CharacterDatabase(getApplication()).characterDao()
+//            val result = dao.saveFavoriteCharacter()
+//            var i = 0
+//            while (i < list.size){
+//                list[i].uuid = result[]
+//            }
+//        }
+//
+//    }
+
     private fun storeCharactersLocally(list: List<CharacterResponse>) {
         //implementing coroutines
         launch {
@@ -94,6 +112,10 @@ class CharacterViewModel(application: Application) : BaseViewModel(application) 
             charactersRetrieved(list)
         }
         prefHelper.saveUpdateTime(System.nanoTime())
+    }
+
+    private fun setCharacterFavorite(){
+        isFavorite.value = true
     }
 
     override fun onCleared() {

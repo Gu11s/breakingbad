@@ -19,4 +19,10 @@ interface CharacterDao {
 
     @Query("DELETE FROM characterresponse")
     suspend fun deleteAllCharacters()
+
+    @Query("SELECT * FROM characterresponse WHERE isFavorite = :characterFavorite")
+    suspend fun getFavoriteCharacter(characterFavorite: Boolean):CharacterResponse
+
+//    @Query("SELECT * FROM characterresponse")
+//    suspend fun saveFavoriteCharacter()
 }

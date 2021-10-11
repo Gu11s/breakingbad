@@ -36,7 +36,7 @@
             app:layout_constraintStart_toEndOf="@+id/iv_detailCharacterImage" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ib_isFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="116dp"

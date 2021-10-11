@@ -22,6 +22,7 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
 
     //    class CharacterViewHolder(var view: View): RecyclerView.ViewHolder(view)
     class CharacterViewHolder(var view: CharacterItemBinding) : RecyclerView.ViewHolder(view.root)
+    private var isFavorite: Boolean = false
 
 
     fun updateCharacterList(newCharacterList: List<CharacterResponse>) {
@@ -63,6 +64,16 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterRespons
 
         holder.view.character = characterList[position]
         holder.view.listener = this
+
+        holder.view.ivFavorite.setOnClickListener {
+            isFavorite = if(!isFavorite){
+                holder.view.ivFavorite.setImageResource(R.drawable.ic_favorite)
+                true
+            }else{
+                holder.view.ivFavorite.setImageResource(R.drawable.ic_outline_favorite)
+                false
+            }
+        }
 
     }
 
